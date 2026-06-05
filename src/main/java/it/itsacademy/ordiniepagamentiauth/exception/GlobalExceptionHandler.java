@@ -1,10 +1,15 @@
 package it.itsacademy.ordiniepagamentiauth.exception;
 
 import it.itsacademy.ordiniepagamentiauth.exception.dto.GeneralErrorResponseDTO;
+import it.itsacademy.ordiniepagamentiauth.exception.dto.ValidationErrorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,5 +26,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(new GeneralErrorResponseDTO(err409.getMessage(), 409));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ValidationErrorResponseDTO> errorValidationHandler(MethodArgumentNotValidException exceptionRaised) {
+        ValidationErrorResponseDTO responseDTO = new ValidationErrorResponseDTO(
+                exceptionRaised.getFieldErrors()
+                        .stream()
+                        .collect(Collectors.toMap(
+                                FieldError::getField,
+                                err -> err.getDefaultMessage() != null ? err.getDefaultMessage() : "missing error message", // Evita i null nel caso in cui non ci sia un messaggio
+                                (existing, replacement) -> existing // Prendi sempre quello già esistente in caso field duplicati
+                        ))
+        );
+
+        return ResponseEntity
+                .badRequest()
+                .body(responseDTO);
     }
 }
