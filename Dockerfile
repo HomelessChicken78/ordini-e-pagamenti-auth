@@ -3,9 +3,9 @@ FROM eclipse-temurin:17-jre-jammy
 # Spostati in /app
 WORKDIR /app
 # Prendi dal mio pc il .jar e mettilo nel container
-COPY target/*.jar gestione-ordini.jar
+COPY target/*.jar ordini-e-pagamenti.jar
 # Esponi la porta 8080 all'esterno
 EXPOSE 8080
 # Runna questo comando al run del container
 # Serve a lanciare java col jar
-ENTRYPOINT ["java", "-jar", "gestione-ordini.jar"]
+ENTRYPOINT ["java", "-jar", "ordini-e-pagamenti.jar"]
