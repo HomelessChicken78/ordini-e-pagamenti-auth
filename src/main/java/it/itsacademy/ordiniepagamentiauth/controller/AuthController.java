@@ -1,8 +1,6 @@
 package it.itsacademy.ordiniepagamentiauth.controller;
 
-import it.itsacademy.ordiniepagamentiauth.dto.JwtToken;
-import it.itsacademy.ordiniepagamentiauth.dto.LoginUser;
-import it.itsacademy.ordiniepagamentiauth.dto.Signup;
+import it.itsacademy.ordiniepagamentiauth.dto.*;
 import it.itsacademy.ordiniepagamentiauth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
