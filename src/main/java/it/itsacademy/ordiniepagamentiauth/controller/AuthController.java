@@ -4,6 +4,7 @@ import it.itsacademy.ordiniepagamentiauth.dto.JwtToken;
 import it.itsacademy.ordiniepagamentiauth.dto.LoginUser;
 import it.itsacademy.ordiniepagamentiauth.dto.Signup;
 import it.itsacademy.ordiniepagamentiauth.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +15,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(path = "/login", produces = json, consumes = json)
-    public JwtToken login(LoginUser dto) {
+    public JwtToken login(@Valid LoginUser dto) {
         return authService.login(dto);
     }
 
     @PostMapping(path = "/singup", produces = json, consumes = json)
-    public JwtToken signup(Signup dto) {
+    public JwtToken signup(@Valid Signup dto) {
         return authService.signUp(dto);
     }
 }
