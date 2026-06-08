@@ -34,7 +34,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtToken login(LoginUser dto) {
-        // NB: AuthenticationManager prende la password in chiaro poichè cripta la password in automatico
+        // NB: AuthenticationManager prende la password in chiaro poichè cripta la password in automatico.
+        // In pratica pensa lui alla login
         authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
 
         userRepository.findByUsernameAndIsActiveTrueOrThrow(dto.getUsername());
