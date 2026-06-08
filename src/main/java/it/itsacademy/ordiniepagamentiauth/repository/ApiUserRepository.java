@@ -16,4 +16,6 @@ public interface ApiUserRepository extends JpaRepository<ApiUser, UUID> {
                         () -> new NotFoundException("Non esiste un utente con username " + username)
                 );
     }
+
+    boolean existsByUsername(String username);
 }
