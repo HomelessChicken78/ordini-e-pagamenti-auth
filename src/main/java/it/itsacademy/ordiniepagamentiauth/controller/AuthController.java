@@ -23,4 +23,7 @@ public class AuthController {
     public JwtToken signup(@Valid Signup dto) {
         return authService.signUp(dto);
     }
+
+    @GetMapping(path = "health")
+    public void health() {};
 }
