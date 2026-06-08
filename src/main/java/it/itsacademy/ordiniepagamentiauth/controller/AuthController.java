@@ -15,12 +15,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(path = "/login", produces = json, consumes = json)
-    public JwtToken login(@Valid LoginUser dto) {
+    public JwtToken login(@Valid @RequestBody LoginUser dto) {
         return authService.login(dto);
     }
 
-    @PostMapping(path = "/singup", produces = json, consumes = json)
-    public JwtToken signup(@Valid Signup dto) {
+    @PostMapping(path = "/signup", produces = json, consumes = json)
+    public JwtToken signup(@Valid @RequestBody Signup dto) {
         return authService.signUp(dto);
     }
 
