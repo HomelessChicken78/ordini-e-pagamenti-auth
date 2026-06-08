@@ -25,5 +25,5 @@ public class AuthController {
     }
 
     @GetMapping(path = "health")
-    public void health() {};
+    public void health() {}
 }
