@@ -1,0 +1,25 @@
+package it.itsacademy.ordiniepagamentiauth.controller;
+
+import it.itsacademy.ordiniepagamentiauth.dto.JwtToken;
+import it.itsacademy.ordiniepagamentiauth.dto.LoginUser;
+import it.itsacademy.ordiniepagamentiauth.dto.Signup;
+import it.itsacademy.ordiniepagamentiauth.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@RestController @RequestMapping("/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final String json = "application/json";
+    private final AuthService authService;
+
+    @PostMapping(path = "/login", produces = json, consumes = json)
+    public JwtToken login(LoginUser dto) {
+        return authService.login(dto);
+    }
+
+    @PostMapping(path = "/singup", produces = json, consumes = json)
+    public JwtToken signup(Signup dto) {
+        return authService.signUp(dto);
+    }
+}
