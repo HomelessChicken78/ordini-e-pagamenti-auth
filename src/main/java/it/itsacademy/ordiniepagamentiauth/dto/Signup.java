@@ -1,5 +1,6 @@
 package it.itsacademy.ordiniepagamentiauth.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -19,4 +20,9 @@ public class Signup {
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$",
             message = "La password deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale.")
     private String password;
+
+    @NotEmpty(message = "Il campo email non può essere vuoto")
+    @NotNull(message = "Il campo email non può essere vuoto")
+    @Email(message = "Formato email non valido")
+    private String email;
 }

@@ -23,11 +23,14 @@ public class AuthServiceImpl implements AuthService {
     public JwtToken signUp(Signup dto) {
         if (userRepository.existsByUsername(dto.getUsername()))
             throw new ConflictException("Esiste già un utente con l'username " + dto.getUsername());
+        if (userRepository.existsByEmail(dto.getEmail()))
+            throw new ConflictException("Email già in uso");
 
         ApiUser utenteDaSalvare = ApiUser.builder()
                 .isActive(true)
                 .username(dto.getUsername())
-                .password(encoder.encode(dto.getPassword())).build();
+                .password(encoder.encode(dto.getPassword()))
+                .email(dto.getEmail()).build();
 
         userRepository.save(utenteDaSalvare);
 

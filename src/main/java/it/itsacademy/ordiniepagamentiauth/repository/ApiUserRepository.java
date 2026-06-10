@@ -18,4 +18,5 @@ public interface ApiUserRepository extends JpaRepository<ApiUser, UUID> {
     }
 
     boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }
