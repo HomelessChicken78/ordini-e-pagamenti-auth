@@ -21,11 +21,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtToken signUp(Signup dto) {
-        if (userRepository.existsByUsername(dto.getUsername())) throw new ConflictException("Esiste già un utente con l'username " + dto.getUsername());
+        if (userRepository.existsByUsername(dto.getUsername()))
+            throw new ConflictException("Esiste già un utente con l'username " + dto.getUsername());
 
-        ApiUser utenteDaSalvare = ApiUser.builder().isActive(true).build();
-        utenteDaSalvare.setUsername(dto.getUsername());
-        utenteDaSalvare.setPassword(encoder.encode(dto.getPassword()));
+        ApiUser utenteDaSalvare = ApiUser.builder()
+                .isActive(true)
+                .username(dto.getUsername())
+                .password(encoder.encode(dto.getPassword())).build();
 
         userRepository.save(utenteDaSalvare);
 
