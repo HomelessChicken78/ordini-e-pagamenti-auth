@@ -4,6 +4,7 @@ import it.itsacademy.ordiniepagamentiauth.dto.*;
 import it.itsacademy.ordiniepagamentiauth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 @RestController @RequestMapping("/auth")
@@ -23,8 +24,8 @@ public class AuthController {
     }
 
     @GetMapping(path = "/me", produces = json)
-    public UserInformationDTO whoAmI() {
-        return authService.whoAmI();
+    public UserInformationDTO whoAmI(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String bearerToken) {
+        return authService.whoAmI(bearerToken);
     }
 
     @GetMapping(path = "health")

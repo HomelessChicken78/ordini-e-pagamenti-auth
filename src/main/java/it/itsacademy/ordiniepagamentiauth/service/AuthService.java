@@ -7,5 +7,5 @@ public interface AuthService {
 
     JwtToken login(LoginUser dto);
 
-    UserInformationDTO whoAmI();
+    UserInformationDTO whoAmI(String bearerToken);
 }
