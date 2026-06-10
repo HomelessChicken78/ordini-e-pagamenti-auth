@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -19,6 +20,20 @@ public class JwtServiceImpl implements JwtService {
 
     @Value("${security.jwt.expiration}")
     private long jwtExpirationMillis;
+
+    @Override
+    public String extractUsername(String jwt) {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+
+        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(jwt)
+                .getPayload()
+                .getSubject();
+    }
 
     @Override
     public JwtToken generateToken(String username) {

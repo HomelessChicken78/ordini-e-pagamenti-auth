@@ -22,6 +22,11 @@ public class AuthController {
         return authService.signUp(dto);
     }
 
+    @GetMapping(path = "/me", produces = json)
+    public UserInformationDTO whoAmI() {
+        return authService.whoAmI();
+    }
+
     @GetMapping(path = "health")
     public void health() {}
 }

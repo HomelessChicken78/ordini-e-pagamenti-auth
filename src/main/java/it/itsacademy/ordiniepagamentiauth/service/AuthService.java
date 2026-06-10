@@ -6,4 +6,6 @@ public interface AuthService {
     JwtToken signUp(Signup dto);
 
     JwtToken login(LoginUser dto);
+
+    UserInformationDTO whoAmI();
 }

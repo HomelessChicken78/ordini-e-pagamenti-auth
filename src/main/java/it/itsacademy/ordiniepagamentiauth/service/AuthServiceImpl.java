@@ -2,11 +2,14 @@ package it.itsacademy.ordiniepagamentiauth.service;
 
 import it.itsacademy.ordiniepagamentiauth.dto.*;
 import it.itsacademy.ordiniepagamentiauth.exception.ConflictException;
+import it.itsacademy.ordiniepagamentiauth.mapper.ApiUserMapper;
 import it.itsacademy.ordiniepagamentiauth.model.ApiUser;
 import it.itsacademy.ordiniepagamentiauth.repository.ApiUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ public class AuthServiceImpl implements AuthService {
     private final ApiUserRepository userRepository;
     private final AuthenticationManager authManager;
     private final JwtService jwtService;
+    private final ApiUserMapper mapper;
 
     @Override
     public JwtToken signUp(Signup dto) {
@@ -50,6 +54,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserInformationDTO whoAmI() {
-        return null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String jwt;
+
+        if (authentication != null && authentication.getCredentials() != null)
+            jwt = authentication.getCredentials().toString();
+        else throw new ConflictException("Non è stato effettuato alcun accesso"); // TODO Better status code
+
+        String userFromJwt = jwtService.extractUsername(jwt);
+        ApiUser found = userRepository.findByUsernameAndIsActiveTrueOrThrow(userFromJwt);
+        return mapper.toDTO(found);
     }
 }
