@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @Builder
 @AllArgsConstructor @NoArgsConstructor
 public class ApiUser {
     @Id @GeneratedValue(strategy = GenerationType.UUID) private UUID userId;

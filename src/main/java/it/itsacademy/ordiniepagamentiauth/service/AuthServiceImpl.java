@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     public JwtToken signUp(Signup dto) {
         if (userRepository.existsByUsername(dto.getUsername())) throw new ConflictException("Esiste già un utente con l'username " + dto.getUsername());
 
-        ApiUser utenteDaSalvare = new ApiUser(null, true, "", "", "");
+        ApiUser utenteDaSalvare = ApiUser.builder().isActive(true).build();
         utenteDaSalvare.setUsername(dto.getUsername());
         utenteDaSalvare.setPassword(encoder.encode(dto.getPassword()));
 
