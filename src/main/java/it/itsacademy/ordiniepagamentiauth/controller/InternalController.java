@@ -6,10 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 // NOTARE: Siccome l'endpoint è /internal e il gateway non riconosce /internal, questo endpoint non è accessibile a
 // partire dal gateway. Tuttavia è comunque accessibile attraverso la rete interna di docker
-@RequestMapping("/internal/auth")
+@RestController @RequestMapping("/internal/auth")
 @RequiredArgsConstructor
 public class InternalController {
     private final AuthService authService;
