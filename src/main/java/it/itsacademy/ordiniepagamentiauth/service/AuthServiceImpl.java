@@ -1,7 +1,7 @@
 package it.itsacademy.ordiniepagamentiauth.service;
 
 import it.itsacademy.ordiniepagamentiauth.dto.*;
-import it.itsacademy.ordiniepagamentiauth.exception.ConflictException;
+import it.itsacademy.ordiniepagamentiauth.exception.*;
 import it.itsacademy.ordiniepagamentiauth.mapper.ApiUserMapper;
 import it.itsacademy.ordiniepagamentiauth.model.ApiUser;
 import it.itsacademy.ordiniepagamentiauth.repository.ApiUserRepository;
@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserInformationDTO whoAmI(String bearerToken) {
         if (bearerToken == null || !bearerToken.startsWith("Bearer "))
-            throw new ConflictException("Non è stato effettuato alcun accesso o l'accesso non è valido"); // TODO Better status code
+            throw new UnauthorizedException("Non è stato effettuato alcun accesso o l'accesso non è valido");
 
         String userFromJwt = jwtService.extractUsername(bearerToken.substring(7));
         ApiUser found = userRepository.findByUsernameAndIsActiveTrueOrThrow(userFromJwt);

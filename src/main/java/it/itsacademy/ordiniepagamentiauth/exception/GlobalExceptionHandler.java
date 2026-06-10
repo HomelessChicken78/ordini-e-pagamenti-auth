@@ -14,6 +14,13 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler
+    public ResponseEntity<GeneralErrorResponseDTO> error401(UnauthorizedException err401) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new GeneralErrorResponseDTO(err401.getMessage(), 401));
+    }
+
+    @ExceptionHandler
     public ResponseEntity<GeneralErrorResponseDTO> error404Handler(NotFoundException err404) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND) // Usando .notFound non posso mettere un body con .body perché non ritorna
