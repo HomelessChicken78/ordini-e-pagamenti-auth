@@ -59,4 +59,11 @@ public class AuthServiceImpl implements AuthService {
         ApiUser found = userRepository.findByUsernameAndIsActiveTrueOrThrow(userFromJwt);
         return mapper.toDTO(found);
     }
+
+    @Override
+    public UserInformationDTO searchApiUser(String username) {
+        ApiUser found = userRepository.findByUsernameAndIsActiveTrueOrThrow(username);
+
+        return mapper.toDTO(found);
+    }
 }

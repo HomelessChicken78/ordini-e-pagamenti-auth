@@ -8,4 +8,6 @@ public interface AuthService {
     JwtToken login(LoginUser dto);
 
     UserInformationDTO whoAmI(String bearerToken);
+
+    UserInformationDTO searchApiUser(String username);
 }
