@@ -12,5 +12,6 @@ public class ApiUser {
     @Id @GeneratedValue(strategy = GenerationType.UUID) private UUID userId;
     @Column(nullable = false) private boolean isActive;
     @Column(nullable = false, unique = true) private String username;
+    @Column(nullable = false, unique = true) private String email;
     @Column(nullable = false) private String password;
 }

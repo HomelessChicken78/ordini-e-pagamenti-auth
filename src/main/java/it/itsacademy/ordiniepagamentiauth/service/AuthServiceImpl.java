@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     public JwtToken signUp(Signup dto) {
         if (userRepository.existsByUsername(dto.getUsername())) throw new ConflictException("Esiste già un utente con l'username " + dto.getUsername());
 
-        ApiUser utenteDaSalvare = new ApiUser(null, true, "", "");
+        ApiUser utenteDaSalvare = new ApiUser(null, true, "", "", "");
         utenteDaSalvare.setUsername(dto.getUsername());
         utenteDaSalvare.setPassword(encoder.encode(dto.getPassword()));
 
@@ -41,5 +41,10 @@ public class AuthServiceImpl implements AuthService {
         userRepository.findByUsernameAndIsActiveTrueOrThrow(dto.getUsername());
 
         return jwtService.generateToken(dto.getUsername());
+    }
+
+    @Override
+    public UserInformationDTO whoAmI() {
+        return null;
     }
 }
