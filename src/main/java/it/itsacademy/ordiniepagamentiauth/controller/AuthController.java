@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final String json = "application/json";
+    private static final String json = "application/json";
     private final AuthService authService;
 
     @PostMapping(path = "/login", produces = json, consumes = json)
